@@ -1,4 +1,4 @@
-#,Song,Artist,Popularity,BPM,Genres,Album,Album Date,Time,Dance,Energy,Acoustic,Instrumental,Happy,Speech,Live,Loud (Db),Key,Time Signature,Added At,Spotify Track Id,Camelot,ISRC
+#,Música,Artista,Popularidade,BPM,Gêneros,Álbum,Data do Álbum,Duração,Dançabilidade,Energia,Acústica,Instrumentalidade,Valência,Fala,Ao Vivo,Volume (dB),Tom,Compasso,Adicionado em,Spotify ID,Camelot,ISRC
 1,"Smooth Criminal - 2012 Remaster","Michael Jackson",73,118,"","Bad 25th Anniversary",2012-09-18,04:17,85,98,25,47,60,0,30,-4,G#/A♭ Major,4,2025-08-23,2bCQHF9gdG5BNDVuEIEnNk,4B,USSM11204989
 2,"Billie Jean","Michael Jackson",84,117,"","Thriller",1982-11-30,04:54,93,46,2,4,88,0,0,-10,B Minor,4,2025-08-23,7J1uxwnxfQLu4APicE5Rnj,10A,USSM19902991
 3,"Smooth Operator - Single Version","Sade",80,119,"","The Best of Sade",1994-10-31,04:18,73,58,24,0,96,0,0,-7,A Minor,4,2025-08-23,1Hv1VTm8zeOeybub15mA2R,8A,GBBBM8400016
@@ -118,6 +118,7 @@
 117,"What I've Done","Linkin Park",84,120,"nu metal, rap metal, rock, metal alternativo","Minutes to Midnight",2007-05-14,03:25,63,94,1,0,29,0,10,-5,F Major,4,2025-08-23,18lR4BzEs7e3qzc0KVkTpU,7B,USWB10700721
 118,"The Emptiness Machine","Linkin Park",80,184,"nu metal, rap metal, rock, metal alternativo","From Zero",2024-11-15,03:10,47,87,2,0,81,0,10,-3,G Major,4,2025-08-23,1EDPVGbyPKJPeGqATwXZvN,9B,USWB12403464
 119,"Crawling","Linkin Park",81,105,"nu metal, rap metal, rock, metal alternativo","Hybrid Theory (Bonus Edition)",2000-10-24,03:28,58,70,5,0,30,0,50,-6,E Major,4,2025-08-23,57BrRMwf9LrcmuOsyGilwr,12B,USWB10002405
+120,"Last Night (feat. Keyshia Cole)","Diddy,Keyshia Cole",62,121,"hip hop, east coast hip hop, rap, r&b","Press Play",2006-10-13,06:28,92,86,17,0,97,0,0,-5,D#/E♭ Minor,4,2025-08-23,5gfPJ45gpn3ThswDyeW0Qc,2A,USBB10500167
 121,"Eye of the Tiger","Survivor",77,109,"","Eye Of The Tiger",1982-00-00,04:03,82,44,22,0,55,0,0,-15,C Minor,4,2025-08-23,2HHtWyy5CgaQbC7XSoOb0e,5A,USVR19300001
 122,"U Can't Touch This","MC Hammer",73,133,"","Please Hammer Don't Hurt 'Em",1990-02-20,04:17,87,52,0,0,86,0,0,-13,B Minor,4,2025-08-23,1B75hgRqe7A4fwee3g3Wmu,10A,USCA29000294
 123,"Take on Me","a-ha",86,84,"new wave, synthpop","Hunting High and Low",1985-06-01,03:45,57,90,2,0,88,0,0,-8,F#/G♭ Minor,4,2025-08-23,2WfaOiMkCvy7F5fcp2zZ8L,11A,USWB19901214

@@ -100,5 +100,7 @@ st.plotly_chart(fig, width='stretch')
 
 st.markdown("---")
 
+df_tabela['Década'] = df_tabela['Década'].astype(str) + 's'
+
 colunas_exibir = ['Música', 'Artista', 'Gêneros', 'Popularidade', 'Década']
 st.dataframe(df_tabela[colunas_exibir])

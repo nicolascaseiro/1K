@@ -58,7 +58,9 @@ df_tabela['Data do Álbum'] = pd.to_datetime(df_tabela['Data do Álbum'], errors
 df_tabela['Ano'] = df_tabela['Data do Álbum'].dt.year
 df_tabela['Década'] = (df_tabela['Ano'] // 10) * 10
 
-total_musicas_filtradas = df_tabela['Música'].nunique()
+total_musicas_filtradas = pd.Series(
+    df_tabela['Música'].str.strip().str.lower() + ' - ' + df_tabela['Artista'].str.strip().str.lower()
+).nunique()
 
 st.title("Dashboard 1K")
 

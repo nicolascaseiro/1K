@@ -33,6 +33,8 @@ df_temp['Década'] = (df_temp['Ano'] // 10) * 10
 st.sidebar.header("Filtros")
 
 decadas_disponiveis = sorted(df_temp['Década'].dropna().unique())
+decadas_disponiveis = [str(d) + 's' for d in decadas_disponiveis]
+
 generos_disponiveis = sorted(df_temp['Gêneros_lista'].dropna().unique())
 artistas_disponiveis = sorted(df_temp['Artistas_lista'].dropna().unique())
 
@@ -43,7 +45,7 @@ artista_selecionado = st.sidebar.multiselect('Filtrar por Artista:', artistas_di
 df_filtrado = df_temp.copy()
 
 if decada_selecionada:
-    df_filtrado = df_filtrado[df_filtrado['Década'].isin(decada_selecionada)]
+    df_filtrado = df_filtrado[df_filtrado['Década'].isin([d[:-1] for d in decada_selecionada])]  # Removendo 's' para o filtro
 
 if genero_selecionado:
     df_filtrado = df_filtrado[df_filtrado['Gêneros_lista'].isin(genero_selecionado)]

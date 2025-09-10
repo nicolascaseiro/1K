@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -11,11 +12,13 @@ def carregar_dados():
 
 df = carregar_dados()
 
-generos_lista = df['Gêneros'].dropna().apply(lambda x: [g.strip() for g in x.split(',')])
-artistas_lista = df['Artista'].dropna().apply(lambda x: [a.strip() for a in x.split(',')])
+df['Gêneros'] = df['Gêneros'].fillna('Desconhecido').astype(str)
+df['Artista'] = df['Artista'].fillna('Desconhecido').astype(str)
+
+generos_lista = df['Gêneros'].apply(lambda x: [g.strip() for g in x.split(',')])
+artistas_lista = df['Artista'].apply(lambda x: [a.strip() for a in x.split(',')])
 
 df_temp = df.copy()
-df_temp = df_temp.loc[generos_lista.index]
 df_temp = df_temp.assign(Gêneros_lista=generos_lista)
 df_temp = df_temp.explode('Gêneros_lista')
 
@@ -23,29 +26,24 @@ artistas_lista_temp = artistas_lista.loc[df_temp.index]
 df_temp = df_temp.assign(Artistas_lista=artistas_lista_temp)
 df_temp = df_temp.explode('Artistas_lista')
 
-meses_pt = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
-
-df_temp['Data do Álbum'] = pd.to_datetime(df_temp['Data do Álbum'], errors='coerce')
-df_temp['Mês'] = df_temp['Data do Álbum'].dt.month.apply(lambda x: meses_pt[x-1] if pd.notna(x) else None)
+df_temp['Data do Álbum'] = pd.to_datetime(df_temp['Data do Álbum'], errors='coerce', dayfirst=True)
+df_temp['Ano'] = df_temp['Data do Álbum'].dt.year
+df_temp['Década'] = (df_temp['Ano'] // 10) * 10
 
 st.sidebar.header("Filtros")
 
-def ordenar_meses(meses_selecionados):
-    return sorted(meses_selecionados, key=lambda m: meses_pt.index(m))
-
-meses_disponiveis = ordenar_meses(df_temp['Mês'].dropna().unique())
+decadas_disponiveis = sorted(df_temp['Década'].dropna().unique())
 generos_disponiveis = sorted(df_temp['Gêneros_lista'].dropna().unique())
 artistas_disponiveis = sorted(df_temp['Artistas_lista'].dropna().unique())
 
-mes_selecionado = st.sidebar.multiselect('Filtrar por Mês:', meses_disponiveis)
+decada_selecionada = st.sidebar.multiselect('Filtrar por Década:', decadas_disponiveis)
 genero_selecionado = st.sidebar.multiselect('Filtrar por Gênero:', generos_disponiveis)
 artista_selecionado = st.sidebar.multiselect('Filtrar por Artista:', artistas_disponiveis)
 
 df_filtrado = df_temp.copy()
 
-if mes_selecionado:
-    df_filtrado = df_filtrado[df_filtrado['Mês'].isin(mes_selecionado)]
+if decada_selecionada:
+    df_filtrado = df_filtrado[df_filtrado['Década'].isin(decada_selecionada)]
 
 if genero_selecionado:
     df_filtrado = df_filtrado[df_filtrado['Gêneros_lista'].isin(genero_selecionado)]
@@ -55,8 +53,11 @@ if artista_selecionado:
 
 indices_filtrados = df_filtrado.index.unique()
 df_tabela = df.loc[indices_filtrados].copy()
-df_tabela['Data do Álbum'] = pd.to_datetime(df_tabela['Data do Álbum'], errors='coerce')
-df_tabela['Mês'] = df_tabela['Data do Álbum'].dt.month.apply(lambda x: meses_pt[x-1] if pd.notna(x) else None)
+
+df_tabela['Data do Álbum'] = pd.to_datetime(df_tabela['Data do Álbum'], errors='coerce', dayfirst=True)
+df_tabela['Ano'] = df_tabela['Data do Álbum'].dt.year
+df_tabela['Década'] = (df_tabela['Ano'] // 10) * 10
+
 total_musicas_filtradas = df_tabela['Música'].nunique()
 
 st.title("Dashboard 1K")
@@ -74,7 +75,7 @@ df_grafico = df_filtrado.groupby('Gêneros_lista')['Popularidade'].mean().reset_
 fig = px.bar(df_grafico,
              x='Gêneros_lista',
              y='Popularidade',
-             title='Popularidade Média por Gênero Musical (2024)',
+             title='Popularidade Média por Gênero Musical',
              labels={'Gêneros_lista': 'Gênero', 'Popularidade': 'Popularidade Média'},
              color='Popularidade',
              color_continuous_scale='Viridis',
@@ -93,9 +94,9 @@ fig.update_layout(
     margin=dict(l=40, r=40, t=80, b=100)
 )
 
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width='stretch')
 
 st.markdown("---")
 
-colunas_exibir = ['Música', 'Artista', 'Gêneros', 'Popularidade', 'Mês']
+colunas_exibir = ['Música', 'Artista', 'Gêneros', 'Popularidade', 'Década']
 st.dataframe(df_tabela[colunas_exibir])
